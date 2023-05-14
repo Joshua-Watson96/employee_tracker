@@ -5,7 +5,7 @@ const inquirer  = require("inquirer")
 // requires dotenv
 require('dotenv').config()
 
-promptUser()
+
 function promptUser() { 
     // prompts user with choices of what they would like to see
     inquirer.prompt([
@@ -17,14 +17,31 @@ function promptUser() {
             {
                 name: 'View all departments',
                 value: 'VIEW_DEPARTMENTS'
-            }]
-        
-        // 'View all employees', 
-        // 'Add employee', 
-        // 'Add a department', 
-        // 'Add a role', 
-        // 'Update an employee role',
-        // 'Quit']
+            },
+            {
+            name: 'View all employees',
+            value: 'VIEW_EMPLOYEES'
+            },
+            {
+            name: 'Add employee',
+            value: 'ADD_EMPLOYEE'
+            },
+            {
+            name: 'Add a department',
+            value: 'ADD_DEPARTMENT'
+            },
+            {
+            name: 'Add a role',
+            value: "ADD_ROLE"
+            },
+            {
+            name: 'Update an employee role',
+            value: "UPDATE_ROLE"
+            },
+            {
+            name: 'Quit',
+            value: "quit"            
+        }]
 
     }
     ])
@@ -33,52 +50,36 @@ function promptUser() {
         switch (choice) {
             case "VIEW_DEPARTMENTS":
                 showDepartments()
-                
                 break;
-        
+            case "VIEW_EMPLOYEES":
+                showEmployees()
+                break;
+            case "ADD_EMPLOYEE":
+                addEmployee()
+                break;
+            case "ADD_DEPARTMENT":
+                addDepartment()
+                break;
+            case "ADD_ROLE":
+                addRole()
+                break;
+            case "UPDATE_ROLE":
+                updateRole()
+                break;
             default:
                 quit();
         }
-
-        // // if user selects 'View all departments'; show showDepartment function
-        // if(choice === "View all departments"){
-        //     showDepartments();
-        // }
-        // // if user selects 'View all employees'; show showEmployees function
-        // if(choice === "View all employees"){
-        //     showEmployees();
-        // }
-        // // if user selects 'Add employee'; show addEmployee function
-        // if(choice === "Add employee"){
-        //     addEmployee();
-        // }
-        // // if user selects 'Add a department'; show addDepartment function
-        // if(choice === "Add a department"){
-        //     addDepartment();
-        // }
-        // // if user selects 'Add a role'; show addRole function
-        // if(choice === "Add a role"){
-        //     addRole();
-        // }
-        // // if user selects 'Update an employee role'; show updateRole function
-        // if(choice === "Update an employee role"){
-        //     updateRole();
-        // }
-        // // if user selects 'Quit'; Quits application
-        // if(choice === "Quit"){
-        //     connection.end
-        // };
-    // });
 })};
 
 // view all Departments function
 function showDepartments() {
+    db.viewDepartments()
 console.log('Showing all departments');
 const sql = `SELECT department_id AS id, department.name AS department FROM department`; 
 }
 
 // view all employees function
-showEmployees = () => {
+function showEmployees() {
     console.log('Showing all employees');
     const sql = `SELECT employee.id, 
     employee.first_name, 
@@ -90,41 +91,8 @@ showEmployees = () => {
 
 // Add employee function
 function addEmployee()  {
-   inquirer.prompt([
-    {
-        // prompts user to input employees first name
-        type: 'input',
-        name: 'firstName',
-        message: 'Please enter the employees first name',
-        validate: addFirstName => {
-            if (addFirstName) {
-                return true;
-            } else {
-                console.log('Please enter a first name');
-                return false;
-            }
-        }
-    },
-    {
-        // prompts user to input employees last name
-        type: 'input',
-        name: 'lastName',
-        message: 'Please enter the employees last name',
-        validate: addlastName => {
-            if (addlastName) {
-                return true;
-            } else {
-                console.log('Please enter a last name');
-                return false;
-            }
-        }
-
-    }
-   ])
-   // adds the new employee to the database 
-   .then(answer => {
-    const answerAdd = [answer.firstName, answer.lastName]
-   })
+   db.addEmployee()
+   console.log("Enter the new employees first and last name.");
 
 }
 
@@ -147,5 +115,6 @@ updateRole = () => {
 }
 
 function quit(){
-proccess.exit();
-}
+// proccess.exit();
+};
+promptUser()

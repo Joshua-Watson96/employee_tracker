@@ -4,6 +4,9 @@ const connection = require('./db/connection.js')
 const inquirer  = require("inquirer")
 // requires dotenv
 require('dotenv').config()
+// requires index.js from the db
+const db = require('./db/index.js')
+
 
 
 function promptUser() { 
@@ -74,36 +77,35 @@ function promptUser() {
 // view all Departments function
 function showDepartments() {
     db.viewDepartments()
-console.log('Showing all departments');
-const sql = `SELECT department_id AS id, department.name AS department FROM department`; 
+console.log("Now showing all departments!");
 }
 
 // view all employees function
 function showEmployees() {
     console.log('Showing all employees');
-    const sql = `SELECT employee.id, 
-    employee.first_name, 
-    employee.last_name, 
-    role.title,
-    department.name AS department, 
-    role.salary,`
+    db.viewEmployee(),
+    promptUser()
 }
 
 // Add employee function
 function addEmployee()  {
-   db.addEmployee()
+   db.addNewEmployee()
    console.log("Enter the new employees first and last name.");
 
 }
 
 // Add department function
-addDepartment = () => {
-    
+function addDepartment()  {
+    db.addNewDepartment()
+    console.log("Enter the new department name");
+    promptUser()
 
 }
 
 // Add role function
-addRole = () => {
+function addRole() {
+db.addNewRole()
+console.log("Enter the new role name");
     
 
 }
@@ -118,3 +120,4 @@ function quit(){
 // proccess.exit();
 };
 promptUser()
+// showDepartments()

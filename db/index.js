@@ -9,7 +9,7 @@ class db {
     }
 
  viewDepartments() {
-    return this.connection.promise().query(
+    return connection.promise().query(
         "SELECT department.id, department.name FROM department"
     )
     

@@ -5,7 +5,7 @@ const inquirer  = require("inquirer")
 // requires dotenv
 require('dotenv').config()
 // requires index.js from the db
-const db = require('./db/index.js')
+// const db = require('./db/index.js')
 
 
 
@@ -76,21 +76,62 @@ function promptUser() {
 
 // view all Departments function
 function showDepartments() {
-    db.viewDepartments()
-console.log("Now showing all departments!");
+    console.log("Now showing all departments!");
+    connection.promise()
+    .query("SELECT department.id, department.name FROM department")
+    .then(([rows, fields]) => {
+      rows.forEach((department) => {
+        console.log(`ID: ${department.id}, Name: ${department.name}`);
+      });
+      connection.end(); // Close the database connection
+    })
+    .catch((error) => {
+        console.error('Error executing query', error);
+        connection.end();
+    })
+// promptUser()
 }
 
 // view all employees function
 function showEmployees() {
     console.log('Showing all employees');
-    db.viewEmployee(),
-    promptUser()
+    connection.promise()
+    .query(`SELECT employee.first_name, employee.last_name, department.name AS department_name
+            FROM employee
+            LEFT JOIN department ON employee.department_id = department.id
+          `)
+    .then(([rows, fields]) => {
+        rows.forEach((employee) => {
+          console.log(`First Name: ${employee.first_name}, Last Name: ${employee.last_name}, Department: ${employee.department_name}`);
+        });
+    })
+   
+//      const query = `
+//     SELECT employee.first_name, employee.last_name, department.name AS department_name
+//     FROM employee
+//     LEFT JOIN department ON employee.department_id = department.id
+//   `;
+
+//   connection.promise()
+//     .query(query)
+//     .then(([rows, fields]) => {
+//       rows.forEach((employee) => {
+//         console.log(`First Name: ${employee.first_name}, Last Name: ${employee.last_name}, Department: ${employee.department_name}`);
+//       });
+//       connection.end(); // Close the database connection
+//     })
+//     .catch((error) => {
+//       console.error('Error executing query:', error);
+//       connection.end(); // Close the database connection
+//     });
 }
+
+
 
 // Add employee function
 function addEmployee()  {
-   db.addNewEmployee()
    console.log("Enter the new employees first and last name.");
+   
 
 }
 

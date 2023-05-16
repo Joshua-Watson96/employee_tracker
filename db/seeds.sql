@@ -1,9 +1,9 @@
-INSERT INTO department (name)
+INSERT INTO department (name, id)
 VALUES 
-('Accounting'),
-('IT'),
-('Marketing'),
-('Logistics');
+('Accounting', 1),
+('IT', 2),
+('Marketing', 3),
+('Logistics', 4);
 
 INSERT INTO role (title, salary, department_id)
 VALUES
@@ -20,13 +20,13 @@ VALUES
 
 
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employee (first_name, last_name, role_id, manager_id, department_id)
 VALUES 
-('Josh', 'Watson', 1, 1),
-('Ashlea', 'Guest', 2, NULL),
-('Danny', 'Yates', 3, 2),
-('Harry', 'Mazzarolo', 4, NULL),
-('Milad', 'Khrais', 5, NULL),
-('Maxwell', 'Watson', 6, 3),
-('Luna', 'Guest', 7, NULL);
+('Josh', 'Watson', 1, 1, 1),
+('Ashlea', 'Guest', 2, NULL, 2),
+('Danny', 'Yates', 3, 2, 3),
+('Harry', 'Mazzarolo', 4, NULL, 4),
+('Milad', 'Khrais', 5, NULL, 1),
+('Maxwell', 'Watson', 6, 3, 2),
+('Luna', 'Guest', 7, NULL, 4);
 

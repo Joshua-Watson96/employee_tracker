@@ -89,41 +89,19 @@ function showDepartments() {
         console.error('Error executing query', error);
         connection.end();
     })
-// promptUser()
 }
 
 // view all employees function
 function showEmployees() {
     console.log('Showing all employees');
     connection.promise()
-    .query(`SELECT employee.first_name, employee.last_name, department.name AS department_name
-            FROM employee
-            LEFT JOIN department ON employee.department_id = department.id
-          `)
+    .query(`SELECT employee.first_name, employee.last_name, employee.role_id FROM employee`)
     .then(([rows, fields]) => {
         rows.forEach((employee) => {
-          console.log(`First Name: ${employee.first_name}, Last Name: ${employee.last_name}, Department: ${employee.department_name}`);
+          console.log(`Name: ${employee.first_name}, ${employee.last_name}, Department ${employee.department_id}`);
         });
     })
    
-//      const query = `
-//     SELECT employee.first_name, employee.last_name, department.name AS department_name
-//     FROM employee
-//     LEFT JOIN department ON employee.department_id = department.id
-//   `;
-
-//   connection.promise()
-//     .query(query)
-//     .then(([rows, fields]) => {
-//       rows.forEach((employee) => {
-//         console.log(`First Name: ${employee.first_name}, Last Name: ${employee.last_name}, Department: ${employee.department_name}`);
-//       });
-//       connection.end(); // Close the database connection
-//     })
-//     .catch((error) => {
-//       console.error('Error executing query:', error);
-//       connection.end(); // Close the database connection
-//     });
 }
 
 

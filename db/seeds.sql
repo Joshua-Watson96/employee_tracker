@@ -26,7 +26,7 @@ VALUES
 ('Ashlea', 'Guest', 2, NULL, 2),
 ('Danny', 'Yates', 3, 2, 3),
 ('Harry', 'Mazzarolo', 4, NULL, 4),
-('Milad', 'Khrais', 5, NULL, 1),
-('Maxwell', 'Watson', 6, 3, 2),
-('Luna', 'Guest', 7, NULL, 4);
+('Milad', 'Khrais', 5, NULL, 3),
+('Maxwell', 'Watson', 6, 3, 1),
+('Luna', 'Guest', 7, NULL, 2);
 

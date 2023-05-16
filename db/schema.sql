@@ -1,4 +1,4 @@
--- Active: 1683538987859@@127.0.0.1@3306@employee_db
+-- Active: 1684027242033@@127.0.0.1@3306@employee_db
 DROP DATABASE IF EXISTS employee_db;
 CREATE DATABASE employee_db;
 USE employee_db;
@@ -24,6 +24,8 @@ CREATE TABLE employee (
     CONSTRAINT fk_role FOREIGN KEY (role_id)  REFERENCES role(id) ON DELETE CASCADE,
     manager_id INTEGER,
     CONSTRAINT fk_manager FOREIGN KEY (manager_id)  REFERENCES employee(id) ON DELETE SET NULL
+    department_id INTEGER,
+    CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE SET NULL
 );
 
 -- department

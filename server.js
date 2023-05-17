@@ -169,30 +169,14 @@ function addDepartment()  {
         
     })
 }
-// Add a department
-// function addDepartment2() {
-//     inquirer.prompt([
-//       {
-//         name: "name",
-//         message: "What is the name of the department?"
-//       }
-//     ])
-//       .then(res => {
-//         let name = res;
-//         db.createDepartment(name)
-//           .then(() => console.log(`Added ${name.name} to the database`))
-//            .then(() => promptUser())
-//       })
-//   }
-  
-//     console.log("Enter the new department name");
+
     
 
 
 
 // Add role function
 function addRole() {
-db.addNewRole()
+
 console.log("Enter the new role name");
     
 
@@ -205,7 +189,7 @@ updateRole = () => {
 }
 
 function quit(){
-// proccess.exit();
+process.exit()
 };
 promptUser()
 // showDepartments()

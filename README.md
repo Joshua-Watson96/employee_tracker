@@ -4,6 +4,10 @@
 ## Description 
 Using NodeJS, inquirer and MySQL2. This application allows you to track employees, certain roles, and departments in the command line. 
 
+## Video Link
+Please click on the link below to see the program running in its current state(NOT FINISHED)
+https://drive.google.com/file/d/13TZBFcE5SItvcbTekzf9Z8sK0XJJEnQY/view
+
 ## Table of contents
 - [Go to Installation](#installation) 
 - [Go to Usage](#usage) 

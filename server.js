@@ -2,7 +2,8 @@
 const connection = require('./db/connection.js')
 // imports inquirer
 const inquirer  = require("inquirer");
-const db = require('./db/index.js');
+
+// const Connection = require('mysql2/typings/mysql/lib/Connection.js');
 // requires dotenv
 require('dotenv').config()
 // requires index.js from the db
@@ -84,7 +85,7 @@ function showDepartments() {
       rows.forEach((department) => {
         console.log(`ID: ${department.id}, Name: ${department.name}`);
       });
-      connection.end(); // Close the database connection
+      
     })
     .catch((error) => {
         console.error('Error executing query', error);
@@ -101,15 +102,10 @@ function showEmployees() {
     .then(([rows, fields]) => {
         
         let employees = rows;
-        // rows.forEach((employees) => {
-        //   console.log(`Name: ${employee.first_name}, ${employee.last_name}, Department ${employee.department_id}`);
         console.table(employees)
         
-        // .then(() => promptUser())
-        // });
 })
-// .then(() => promptUser()) 
-   
+.then(() => promptUser())
 }
 
 
@@ -130,10 +126,28 @@ function addEmployee()  {
         name: 'addNewEmpRole',
         message: 'Please enter role'
     }])
-    .then(ans => {
-        db.query("INSERT INTO employee SET ?", ans.addFirstName, addLastName, addNewEmpRole)
-    })
-   
+
+.then(answers => {
+    const firstName = answers.addFirstName;
+    const lastName = answers.addLastName;
+    const role = answers.addNewEmpRole;
+
+    // Insert the employee data into the database
+    const query = 'INSERT INTO employee (first_name, last_name, role_id) VALUES (?, ?, ?)';
+    connection.query(query, [firstName, lastName, role], (error, results) => {
+      if (error) {
+        console.error('Error inserting employee:', error);
+      } else {
+        console.log('Employee added successfully!');
+      }
+    // .then(ans => {
+    //     connection.promise()
+    //     .query('INSERT INTO employees (first_name, last_name, role) VALUES (?, ?, ?)')
+        
+    // })
+
+})})
+.then(() => promptUser())
 
 }
 
@@ -148,29 +162,30 @@ function addDepartment()  {
             
         }])
     .then(ans => {
-        db.query("INSERT INTO department SET ?;", ans.addNewDept) 
+        connection.promise()
+        .query("INSERT INTO department SET ?;", ans.addNewDept) 
         .then(() => console.log(`added ${ans.addNewDept} to the database`))
         .then(() => promptUser()) 
         
     })
 }
 // Add a department
-function addDepartment() {
-    inquirer.prompt([
-      {
-        name: "name",
-        message: "What is the name of the department?"
-      }
-    ])
-      .then(res => {
-        let name = res;
-        db.createDepartment(name)
-          .then(() => console.log(`Added ${name.name} to the database`))
-           .then(() => promptUser())
-      })
-  }
+// function addDepartment2() {
+//     inquirer.prompt([
+//       {
+//         name: "name",
+//         message: "What is the name of the department?"
+//       }
+//     ])
+//       .then(res => {
+//         let name = res;
+//         db.createDepartment(name)
+//           .then(() => console.log(`Added ${name.name} to the database`))
+//            .then(() => promptUser())
+//       })
+//   }
   
-    console.log("Enter the new department name");
+//     console.log("Enter the new department name");
     
 
 

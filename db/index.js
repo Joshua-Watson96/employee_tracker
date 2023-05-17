@@ -85,6 +85,11 @@ addNewDepartment(){
     })
 }
 
+// Create a new department
+createDepartment(department) {
+    return this.connection.promise().query("INSERT INTO department SET ?", department);
+  }
+
 addNewRole(){
     const deptChoices = () => db.promise().query(`SELECT * FROM department`)
     .then((rows) => {
